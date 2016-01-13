@@ -26,7 +26,7 @@ class kanaspeed extends React.Component {
   render() {
     return (
       <Navigator style={{flex:1}}
-                  initialRoute={{id: 'Game', name: 'Main', index: 0}}
+                  initialRoute={{id: 'Game', name: 'Game', index: 0}}
                   renderScene={this.renderScene}
                   navigationBar={ <Navigator.NavigationBar routeMapper={NavigationBarRouteMapper} /> } 
        />

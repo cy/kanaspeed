@@ -3,6 +3,7 @@
 
 import React from "react-native";
 import Game from "./Game";
+import MenuButton from "../components/MenuButton";
 
 let {
   Navigator,
@@ -12,20 +13,11 @@ let {
   StyleSheet
 } = React;
 
-class MenuButton extends React.Component {
-  render() {
-    const { children } = this.props;
-    return (
-      <TouchableHighlight onPress={() => this.props.navigator.push({id: 'Game'})}>
-        <View style={{borderWidth: 1, marginTop: 10, paddingRight: 5, paddingLeft: 5}}>
-          <Text style={{fontSize: 50}}>{children}</Text>
-        </View>
-      </TouchableHighlight>
-    );
-  }
-}
-
 class MainMenu extends React.Component {
+  goToGame() {
+    this.props.navigator.push({id: 'Game'});
+  }
+
   render() {
     const {navigator} = this.props;
     return (
