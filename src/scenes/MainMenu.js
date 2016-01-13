@@ -1,17 +1,7 @@
 /* @flow */
-/*eslint-disable prefer-const */
-
-import React from "react-native";
+import React, { Navigator, View, Text, TouchableHighlight, StyleSheet } from "react-native";
 import Game from "./Game";
 import MenuButton from "../components/MenuButton";
-
-let {
-  Navigator,
-  View,
-  Text,
-  TouchableHighlight,
-  StyleSheet
-} = React;
 
 class MainMenu extends React.Component {
   goToGame(kanaTypes) {

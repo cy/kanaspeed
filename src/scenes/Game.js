@@ -1,8 +1,6 @@
 /* @flow */
-/*eslint-disable prefer-const */
-
 import React from 'react-native';
-import Button from '../components/Button';
+import OptionButton from '../components/OptionButton';
 import _ from 'lodash';
 
 let {
@@ -20,15 +18,6 @@ const data = {
   "katakana": katakana
 };
 
-class OptionButton extends React.Component {
-  render() {
-    const { children, onPress } = this.props;
-    return (
-      <Button style={styles.optionButton} onPress={onPress}>{children}</Button>
-    );
-  }
-}
-
 class Game extends React.Component {
 
   constructor(props) {
@@ -37,12 +26,22 @@ class Game extends React.Component {
       mapping: props.kanaTypes.reduce((acc, type) => acc = {...acc, ...data[type]}, {}),
       q: "",
       options: [],
-      correct: 0
+      correct: 0,
+      secondsElapsed: 0,
     };
+  }
+
+  tick() {
+    this.setState({secondsElapsed: this.state.secondsElapsed + 1});
   }
 
   componentDidMount() {
     this.pickQuestion();
+    this.interval = setInterval(this.tick.bind(this), 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   pickQuestion() {
@@ -75,6 +74,7 @@ class Game extends React.Component {
         this.setState({score: this.state.correct++});
         this.pickQuestion();
       }
+      console.log(`ended at ${this.state.secondsElapsed}`);
       // end game
     };
 
@@ -83,7 +83,7 @@ class Game extends React.Component {
       <View style={{flex: 1, alignItems: 'stretch'}}>
       <View style={{flexDirection: 'row', alignItems: 'stretch', justifyContent: 'space-between'}}>
         <Text style={{alignSelf: 'flex-start', padding: 3}}>✓ { correct }</Text>
-        <Text style={{alignSelf: 'flex-end', padding: 3}}>0 ms</Text>
+        <Text style={{alignSelf: 'flex-end', padding: 3}} >{ this.state.secondsElapsed }s</Text>
       </View>
       <View style={styles.container}>
           <View style={{}}>
@@ -119,16 +119,6 @@ var styles = StyleSheet.create({
     margin: 0,
     padding: 0
   },
-  optionButton: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    width: 100,
-    height: 100,
-    marginTop: 10,
-    marginLeft: 10,
-  }
 });
 
 export default Game;
