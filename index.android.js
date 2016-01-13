@@ -12,6 +12,7 @@ const {
 
 import Game from './src/scenes/Game';
 import MainMenu from './src/scenes/MainMenu';
+import GameEnd from './src/scenes/GameEnd';
 
 class kanaspeed extends React.Component {
   renderScene(route, navigator) {
@@ -23,6 +24,13 @@ class kanaspeed extends React.Component {
                    route={route}
                    kanaTypes={route.kanaTypes}
               />
+    }
+    if (route.id === 'GameEnd') {
+      return <GameEnd numCorrect={route.numCorrect}
+                      time={route.time}
+                      selected={route.selected}
+                      question={route.question}
+                      answer={route.answer} />
     }
   }
 

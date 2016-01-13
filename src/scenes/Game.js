@@ -70,12 +70,19 @@ class Game extends React.Component {
 
   render() {
     const check = (choice) => {
-      if (choice === this.state.mapping[this.state.q]) {
+      const answer = this.state.mapping[this.state.q];
+      if (choice === answer) {
         this.setState({score: this.state.correct++});
         this.pickQuestion();
+      } else {
+        this.props.navigator.push({id: 'GameEnd',
+                                   numCorrect: this.state.correct,
+                                   time: this.state.secondsElapsed,
+                                   question: this.state.q,
+                                   answer: answer,
+                                   selected: choice,
+        })
       }
-      console.log(`ended at ${this.state.secondsElapsed}`);
-      // end game
     };
 
     const { options, correct } = this.state;
