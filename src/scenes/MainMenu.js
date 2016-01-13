@@ -14,8 +14,9 @@ let {
 } = React;
 
 class MainMenu extends React.Component {
-  goToGame() {
-    this.props.navigator.push({id: 'Game'});
+  goToGame(kanaTypes) {
+    const { navigator, route } = this.props;
+    navigator.push({id: 'Game', index: route.index + 1, kanaTypes: kanaTypes});
   }
 
   render() {
@@ -23,9 +24,9 @@ class MainMenu extends React.Component {
     return (
       <View style={{flex: 1}}>
           <View style={styles.container}>
-          <MenuButton navigator={navigator}>あ</MenuButton>
-          <MenuButton navigator={navigator}>ア</MenuButton>
-          <MenuButton navigator={navigator}>あ+ア</MenuButton>
+          <MenuButton onPress={this.goToGame.bind(this, ["hiragana"])}>あ</MenuButton>
+          <MenuButton onPress={this.goToGame.bind(this, ["katakana"])}>ア</MenuButton>
+          <MenuButton onPress={this.goToGame.bind(this, ["hiragana", "katakana"])}>あ+ア</MenuButton>
         </View>
        </View>
     );
