@@ -27,6 +27,7 @@ class kanaspeed extends React.Component {
     }
     if (route.id === 'GameEnd') {
       return <GameEnd numCorrect={route.numCorrect}
+                      navigator={navigator}
                       time={route.time}
                       selected={route.selected}
                       question={route.question}
