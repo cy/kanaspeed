@@ -1,22 +1,20 @@
 /* @flow */
 
-import React from "react-native";
-
-let {
+import React, {
   View,
   Text,
-  TouchableHighlight,
+  TouchableOpacity,
   StyleSheet
-} = React;
+} from "react-native";
 
 export default (props) => {
   const { children, style, onPress } = props;
   return (
-    <TouchableHighlight onPress={ onPress }>
+    <TouchableOpacity onPress={ onPress }>
       <View style={style}>
         <Text style={{fontSize: 50}}>{children}</Text>
       </View>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 }
 
