@@ -75,12 +75,14 @@ class Game extends React.Component {
         this.setState({score: this.state.correct++});
         this.pickQuestion();
       } else {
+        console.log(this.props.kanaTypes);
         this.props.navigator.push({id: 'GameEnd',
                                    numCorrect: this.state.correct,
                                    time: this.state.secondsElapsed,
                                    question: this.state.q,
                                    answer: answer,
                                    selected: choice,
+                                   kanaTypes: this.props.kanaTypes,
         })
       }
     };

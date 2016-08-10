@@ -31,7 +31,9 @@ class kanaspeed extends React.Component {
                       time={route.time}
                       selected={route.selected}
                       question={route.question}
-                      answer={route.answer} />
+                      answer={route.answer}
+                      kanaTypes={route.kanaTypes}
+                      />
     }
   }
 

@@ -15,26 +15,21 @@ export default class GameEnd extends React.Component {
   }
 
   async checkHighscore(highscores: Array<Object>) {
-    console.log('checkHighscore test');
     const { numCorrect, time } = this.props;
     const scores = [...highscores, {numCorrect: numCorrect, time: time, marked: true}];
     const topScores = _.take(_.sortBy(scores, (s) => -s.numCorrect, 'time'), 5);
-    console.log(topScores);
     const ranked = _.reduce(topScores, (result, s) => s.marked ? true : result, false);
-    console.log('ranked:' + ranked);
     if (ranked) {
       this.setState({ranked: true});
-      console.log('write to highscore');
       this.writeHighscore(topScores).done();
     }
   }
 
   async loadHighscores() {
-    console.log('loadHighscores');
     try {
-      const highscores = await AsyncStorage.getItem(STORAGE_KEY);
+      console.log(`${STORAGE_KEY}:${this.props.kanaTypes.join('.')}`);
+      const highscores = await AsyncStorage.getItem(`${STORAGE_KEY}:${this.props.kanaTypes.join('.')}`);
       if (highscores !== null) {
-        console.log('Recovered selection from disk: ' + highscores);
         this.checkHighscore(JSON.parse(highscores)).done();
       } else {
         console.log('Initialized with no selection on disk.');
@@ -48,7 +43,7 @@ export default class GameEnd extends React.Component {
 
   async writeHighscore(topScores: Array<Object>) {
     try {
-      await AsyncStorage.setItem(STORAGE_KEY,
+      await AsyncStorage.setItem(`${STORAGE_KEY}:${this.props.kanaTypes.join('.')}`,
                                  JSON.stringify(topScores.map(s => {return {numCorrect: s.numCorrect, time: s.time};} )));
       console.log('Saved selection to disk' + JSON.stringify(topScores));
       this.setState({ highscores: topScores });
@@ -69,7 +64,7 @@ export default class GameEnd extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.header}>Game Over</Text>
-        <Text style={styles.normalText}>{question} → ✓{answer}, x{selected}</Text>
+        <Text style={styles.normalText}>{question} → ✓ {answer}, x {selected}</Text>
         <Text style={styles.normalText}>Score: ✓{numCorrect}, {time}s</Text>
         { ranked &&
             <Text style={{fontSize: 15, marginTop: 5}}>
@@ -79,7 +74,7 @@ export default class GameEnd extends React.Component {
           <View style={styles.score}>
           <Text style={{flex: 1, alignItems: 'center'}}>Highscores</Text>
           { highscores.map( (score, i) =>
-            <Text key={i} style={{fontSize: 10, color: score.marked ? '#48D1CC' : '#000000'}}>✓{score.numCorrect} {score.time}s</Text>
+            <Text key={i} style={{fontSize: 15, color: score.marked ? '#48D1CC' : '#000000'}}>✓{score.numCorrect} {score.time}s</Text>
             )
           }
           </View>
