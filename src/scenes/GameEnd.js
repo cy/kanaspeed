@@ -71,13 +71,14 @@ export default class GameEnd extends React.Component {
               You made it to the highscore!
             </Text>
         }
-          <View style={styles.score}>
+        { ranked && <View>
           <Text style={{flex: 1, alignItems: 'center'}}>Highscores</Text>
           { highscores.map( (score, i) =>
-            <Text key={i} style={{fontSize: 15, color: score.marked ? '#48D1CC' : '#000000'}}>✓{score.numCorrect} {score.time}s</Text>
+            <Text key={i} style={{fontSize: 15, color: score.marked ? '#48D1CC' : '#000000'}}>✓{score.numCorrect}, {score.time}s</Text>
             )
           }
           </View>
+        }
         <MenuButton onPress={() => navigator.push({id: 'MainMenu'})}>
           OK
         </MenuButton>
@@ -92,12 +93,6 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF'
-  },
-  highScore: {
-    flex: 1,
-    width: 200,
-    borderWidth: 1,
-    margin: 10
   },
   header: {
     fontSize: 50
