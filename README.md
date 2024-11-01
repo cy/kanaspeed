@@ -1,3 +1,4 @@
+test
 # kanaspeed
 
 react-native android, mix of es6 and es7 as shipped in react-native
