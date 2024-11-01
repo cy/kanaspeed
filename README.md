@@ -17,3 +17,4 @@ react-native android, mix of es6 and es7 as shipped in react-native
 2. adb install kanaspeed.apk
 
 ![screenshot](https://raw.githubusercontent.com/cy/kanaspeed/master/screen.png)
+test
